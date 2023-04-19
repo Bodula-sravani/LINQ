@@ -1,5 +1,16 @@
 ﻿namespace LINQ
 {
+    public class Marks
+    {
+        public int marks1 { get; set; }
+
+        public int marks2 { get; set; }
+        public int marks3 { get; set; }
+
+        public int studentId { get; set; }
+
+
+    }
 
     public class Student
     {
@@ -57,23 +68,50 @@
             //nums.Take(5).ToList().ForEach(x => { Console.WriteLine(x); });
 
                 List<Student> students1 = new List<Student>() {
-                 new Student() { Id=1,Name="student1",age=21},
-                 new Student() { Id = 2, Name = "student2",age=23 },
-                 new Student() { Id = 3, Name = "student3",age=19 },
-                 new Student() { Id = 4, Name = "student2",age=20 },
+                 new Student() { Id=1,Name="st1",age=18},
+                 new Student() { Id = 2, Name = "stu",age=23 },
+                 new Student() { Id = 3, Name = "stud",age=19 },
+                 new Student() { Id = 4, Name = "ent2",age=20 },
                  new Student() { Id = 5, Name = "2student3",age=19 },
-                 new Student() { Id = 6, Name = "2student2",age=20 }
+                 new Student() { Id = 6, Name = "nt2",age= 23},
+                 new Student() { Id = 7, Name = "2t2",age=24 },
+                 new Student() { Id = 8, Name = "2student2",age=18 }
+
                };
 
-            List<Student> students2 = new List<Student>() {
-                 new Student() { Id=1,Name="student1",age=21},
-                 new Student() { Id = 2, Name = "student2",age=23 },
-                 new Student() { Id = 5, Name = "2student3",age=19 },
-                 new Student() { Id = 6, Name = "2student2",age=20 }
-            };
+           
+            List<Marks> mark = new List<Marks>()
+             {
+                 new Marks() {marks1=90,marks2=98,marks3=99,studentId=1 },
+                 new Marks() {marks1=90,marks2=98,marks3=99,studentId=2 },
+                 new Marks() {marks1=100,marks2=98,marks3=19,studentId=3 },
+                 new Marks() {marks1=90,marks2=100,marks3=99,studentId=4 },
+                 new Marks() {marks1=100,marks2=98,marks3=99,studentId=5 },
+             };
 
-            students1.Take(4).Where(x=> x.age>20).ToList().ForEach(x => { Console.WriteLine(x.Name); });
+            var query = from student in students1
+                        join m in mark on student.Id equals m.studentId
+                        select (student.Name,m.marks1);
 
+            //foreach(var item in query)
+            //{
+            //    Console.WriteLine(item.Name+ " "+ item.marks1);
+            //}
+
+            //var query2 = students1.Join(mark, s1 => s1.Id, m1 => m1.studentId,(s1,m1)=>new {s1.Id,s1.Name,m1.marks1,m1.marks2});
+
+            //foreach (var item in query2)
+            //{
+            //    Console.WriteLine(item.Id + " "+item.Name+" " + item.marks1);
+            //}
+
+
+
+            //students1.SkipWhile(x=>x.Name.Length<5).ToList().ForEach(x => { Console.WriteLine(x.Name + " "+x.age); });
+
+            //students1.Take(4).Where(x=> x.age>20).ToList().ForEach(x => { Console.WriteLine(x.Name); });
+
+            // students1.TakeWhile(x=>x.age>19).ToList().ForEach(x => { Console.WriteLine(x.Name); });
             //students1.Select(x => x.Id).Except(students2.Select(x => x.Id)).ToList().ForEach(x => { Console.WriteLine(x); });
             //students1.Select(x => x.Id).Intersect(students2.Select(x => x.Id)).ToList().ForEach(x => { Console.WriteLine(x); });
             //students2.UnionBy(students1,x=>x.Name).ToList().ForEach(x=> { Console.WriteLine(x.Name); });
